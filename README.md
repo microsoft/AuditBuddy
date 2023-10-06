@@ -1,33 +1,190 @@
-# Project
+# AuditBuddy
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+**AudityBuddy** is a PowerShell Cmdlet used to manage Windows Audit settings.
 
-As the maintainer of this project, please make a few updates:
+**AuditBuddy** also includes .Net library used by the cmdlet, but can also be used in other .NET applications to manage windows audit settings.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+[![PR Build](https://github.com/microsoft/AuditBuddy/actions/workflows/PullRequest.yml/badge.svg)](https://github.com/microsoft/AuditBuddy/actions/workflows/PullRequest.yml)
 
-## Contributing
+# Installation
+The module can directly be installed from the PSGallery using
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+```
+Install-Module -Name AuditBuddy
+```
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+# Documentation
+- [Advanced Audit Policy Settings Documentation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-audit-policy-settings)
+- [Legacy Audit Policy Settings Documentation](https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/audit-policy)
+- [Audit Policy Recommendations](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations)
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+# Community and Contact
+Please feel free to file issues through GitHub for bugs and feature requests and we'll respond to them as quickly as we're able.
 
-## Trademarks
+#  Examples
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+## Get-AuditPolicy
+
+### Syntax
+    Get-AuditPolicy [[-Category] {System | Logon | Object Access | Privilege Use | Detailed Tracking | Policy Change |
+    Account Management | Directory Service Access | Account Logon}]  [<CommonParameters>]
+
+## Description
+Get legacy Audit policy settings.
+
+## Examples
+
+### Example 1
+Gets the legacy Audit policies
+
+    Get-AuditPolicy
+### Example 2
+Gets the Audit policy for Object Access
+
+    Get-AuditPolicy -Category 'Object Access'
+
+## Get-AuditPolicyCategories
+### Syntax
+    Get-AuditPolicyCategories  [<CommonParameters>]
+
+## Description
+Get legacy Audit policy categories.
+
+## Examples
+
+### Example 1
+Gets the legacy Audit policies
+
+    Get-AuditPolicyCategories
+
+## Set-AuditPolicy
+
+### Syntax
+    Set-AuditPolicy [-CategoryName] {System | Logon | ObjectAccess | PrivilegeUse | DetailedTracking | PolicyChange |
+    AccountManagement | DirectoryServiceAccess | AccountLogon} [-Setting] {None | Success | Failure | Both}
+    [<CommonParameters>]
+
+    Set-AuditPolicy [-Policy] <AuditPolicy[]> [-Setting] {None | Success | Failure | Both}  [<CommonParameters>]
+
+## Description
+Set legacy Audit policy settings.
+
+## Examples
+
+### Example 1
+Enables Success auditing on the Object Access legacy audit policy
+
+    Set-AuditPolicy -CategoryName 'ObjectAccess' -Setting Success
+
+### Example 2
+Enables Success auditing on ObjectAccess and DetailedTracking legacy audit policies
+
+    'ObjectAccess','DetailedTracking' | Set-AuditPolicy -Setting Success
+
+### Example 3
+Enable Success and Audit on all legacy audit policies
+
+    Get-AuditPolicy | Set-AuditPolicy -Setting Both
+
+## Get-AdvancedAuditPolicy
+
+### Syntax
+    Get-AdvancedAuditPolicy [-CategoryName {System | Logon/Logoff | Object Access | Privilege Use | Detailed Tracking
+    | Policy Change | Account Management | DS Access | Account Logon}]  [<CommonParameters>]
+
+    Get-AdvancedAuditPolicy [-SubCategoryName <string>]  [<CommonParameters>]
+
+    Get-AdvancedAuditPolicy [-SubCategory <AdvancedAuditSubCategory[]>]  [<CommonParameters>]
+
+## Description
+Get Advanced Audit policy settings
+
+## Examples
+
+### Example 1
+Gets all of the Advanced Audit policy settings
+
+    Get-AdvancedAuditPolicy
+
+### Example 2
+Gets only the Object Access related audit policy settings
+
+    Get-AdvancedAuditPolicy -Category 'Object Access'
+
+### Example 3
+Gets only the Object Access related audit policy settings
+
+    Get-AdvancedAuditPolicySubCategories -Category 'Object Access' | Get-AdvancedAuditPolicy
+
+### Example 4
+Gets only the File System SubCategory audit policy settings
+
+    Get-AdvancedAuditPolicy -SubCategoryName 'File System'
+
+## Get-AdvancedAuditPolicyCategories
+### Syntax
+    Get-AdvancedAuditPolicyCategories  [<CommonParameters>]
+
+## Description
+Get Advanced Audit policy categories.
+
+## Examples
+
+### Example 1
+Gets the Advanced Audit categories
+
+    Get-AdvancedAuditPolicyCategories
+
+## Get-AdvancedAuditPolicySubCategories
+### Syntax
+    Get-AdvancedAuditPolicySubCategories  [<CommonParameters>]
+
+## Description
+Gets the Advanced Audit categories and subcategories.
+
+## Examples
+
+### Example 1
+Gets the Advanced Audit categories and subcategories
+
+    Get-AdvancedAuditPolicySubCategories
+### Example 2
+Gets the Advanced Audit subcategories for Object Access
+
+    Get-AdvancedAuditPolicySubCategories -Category 'Object Access'
+
+## Set-AdvancedAuditPolicy
+
+### Syntax
+    Set-AdvancedAuditPolicy [-CategoryName] {System | Logon/Logoff | Object Access | Privilege Use | Detailed Tracking
+    | Policy Change | Account Management | DS Access | Account Logon} [-Setting] {None | Success | Failure | Both}
+    [<CommonParameters>]
+
+    Set-AdvancedAuditPolicy [-SubCategoryName] <string[]> [-Setting] {None | Success | Failure | Both}
+    [<CommonParameters>]
+
+    Set-AdvancedAuditPolicy [-Policy] <AdvancedAuditPolicy[]> [-Setting] {None | Success | Failure | Both}
+    [<CommonParameters>]
+
+## Description
+Get Advanced Audit policy settings
+
+## Examples
+
+### Example 1
+Enables Success auditing on the Object Access legacy audit policy
+
+    Set-AdvancedAuditPolicy -CategoryName 'Object Access' -Setting Success
+
+### Example 2
+Enables Success auditing on the File System subcategory of Object Access
+
+    Set-AdvancedAuditPolicy -SubCategoryName 'File System' -Setting Success
+
+### Example 3
+Enable Success and Audit on all advanced audit policies
+
+    Get-AdvancedAuditPolicy | Set-AdvancedAuditPolicy -Setting Both
+
+#Trademark Notice
+**Trademarks** This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow Microsoft’s Trademark & Brand Guidelines. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party’s policies.

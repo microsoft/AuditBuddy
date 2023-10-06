@@ -1,0 +1,27 @@
+name: PR Build
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v4.0.0
+      
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.3.1
+
+      - name: Build app for release
+        run: msbuild AuditBuddy.sln -t:rebuild -verbosity:diag -property:Configuration=Release -r
+
+      - name: vstest-action
+        uses: microsoft/vstest-action@v1.0.0
+        with:
+          testAssembly: |
+             **\bin\**\*.Tests.dll
+             !**\obj\**

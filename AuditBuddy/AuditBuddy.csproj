@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="PowerShellStandard.Library" Version="5.1.0.0" targetFramework="net472"/>
+	</ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\AuditBuddy.Library\AuditBuddy.Library.csproj" />
+  </ItemGroup>
+
+	<!-- Copy the .psd1 file to the output directory -->
+	<ItemGroup>
+		<Content Include="AuditBuddy.psd1">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>
