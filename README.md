@@ -2,7 +2,7 @@
 
 **AudityBuddy** is a PowerShell Cmdlet used to manage Windows Audit settings.
 
-**AuditBuddy** also includes a .NET library used by the cmdlet that can be used in any .NET applications.
+**AuditBuddy** also includes a .NET library used by the cmdlet that can be used in any .NET application.
 
 [![PR Build](https://github.com/microsoft/AuditBuddy/actions/workflows/PullRequest.yml/badge.svg)](https://github.com/microsoft/AuditBuddy/actions/workflows/PullRequest.yml)
 
