@@ -5,15 +5,8 @@ namespace AuditBuddyTestConsoleApp
 {
     internal class Program
     {
-        public static void TryNull (long value)
-        {
-            long newvalue = value;
-        }
-
         static void Main(string[] args)
         {
-
-
             var manager = new AdvancedAuditPolicyManager();
             var categories = manager.GetAdvancedAuditSubCategories();
             Console.WriteLine($"Found {categories.Count} Categories");
@@ -28,9 +21,6 @@ namespace AuditBuddyTestConsoleApp
                     Console.WriteLine($"The following audit setting are not enabled: Category [{policy.Category}] SubCategory [{policy.SubCategory}]");
                 }
             }
-
-            long test = long.MinValue;
-            TryNull(test);
         }
     }
 }
