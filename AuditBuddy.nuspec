@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>AuditBuddy</id>
+        <version>1.1</version>
+        <title>AudityBuddy is a PowerShell Cmdlet used to manage Windows Audit settings.</title>
+        <authors>Microsoft</authors>
+        <owners>Microsoft</owners>
+        <license type="expression">MIT</license>
+        <projectUrl>https://github.com/microsoft/AuditBuddy</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>AudityBuddy is a PowerShell Cmdlet used to manage Windows Audit settings. AuditBuddy also includes a .NET library used by the cmdlet that can be used in any .NET application.</description>
+        <summary>AudityBuddy is a PowerShell Cmdlet used to manage Windows Audit settings.</summary>
+        <releaseNotes>
+        </releaseNotes>
+        <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+        <language />
+        <tags>Audit AuditPol AuditPol.exe WindowsAudit</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.7.2" />
+        </dependencies>
+    </metadata>
+
+    <files>
+        <file src="AuditBuddy\bin\release\net472\AuditBuddy.dll" target="AuditBuddy.dll" />
+        <file src="AuditBuddy\bin\release\net472\AuditBuddy.Library.dll" target="AuditBuddy.Library.dll" />
+        <file src="AuditBuddy\bin\release\net472\AuditBuddy.psd1" target="AuditBuddy.psd1" />
+        <file src="AuditBuddy\bin\release\net472\System.Management.Automation.dll" target="System.Management.Automation.dll" />
+    </files>
+</package>
